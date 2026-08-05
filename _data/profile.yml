@@ -1,3 +1,6 @@
+# profile_card_bg_color: "#ffffff"  # defult as white
+profile_card_bg_image: /assets/images/bg.jpg  
+
 primary_name: "Xiaochen SU"
 secondary_name: ""
 navbar_name: "Xiaochen SU"
@@ -39,7 +42,7 @@ education:
 - name: The Chinese University of Hong Kong
   logo: /assets/images/badges/CUHK.png
   position: >- 
-    Department of Statistics and Data Science <br/>
+    *Department of Statistics and Data Science* <br/>
     Ph.D. Student <br/>
     BSc. in Statistics
   date: >-
@@ -48,11 +51,14 @@ education:
     
 - name: Shanghai Jiao Tong University
   logo: /assets/images/badges/SJTU.png
-  position: Exchange Student at Zhiyuan College
-  date: Feb. 2023 - Jun. 2023
+  position: >-
+    *Zhiyuan College* <br/>
+    Exchange Student
+  date: >-
+    Feb. 2023 - Jun. 2023
 
 experience:
-- name: PanopticAIShenzhen Stock Exchange
+- name: PanopticAI
   logo: /assets/images/badges/panopticai.png
   position: Research Assistant
   date: Jun. 2024 - Aug. 2024

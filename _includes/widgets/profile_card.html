@@ -1,9 +1,17 @@
 <div class="row">
     <div class="col">
-        <div class="card border-0 shadow-sm bg-white">
-            <div class="card-body p-5">
-                <div class="row">
-                    <div class="col">
+        {% if site.data.profile.profile_card_bg_image %}
+        <div class="card border-0 shadow-sm" style="background-image: url('{{ site.data.profile.profile_card_bg_image | relative_url }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+        {% else %}
+        <div class="card border-0 shadow-sm" style="background-color: {{ site.data.profile.profile_card_bg_color | default: '#ffffff' }};">
+        {% endif %}
+        {% if site.data.profile.profile_card_bg_image %}
+        <div class="card-body p-5" style="background: rgba(255,255,255,0.85); backdrop-filter: blur(4px);">
+        {% else %}
+        <div class="card-body p-5">
+        {% endif %}
+            <div class="row">
+                <div class="col">
                         {% if site.data.profile.portrait_url %}
                         <!-- When the screen is wider than md, float the portrait on the right -->
                         <div class="figure float-right ml-4 mb-4 d-none d-md-block">
@@ -49,8 +57,8 @@
                 <hr />
                 <div class="row">
                     <div class="col">
-                        <a class="pr-3" href="mailto:{{ site.data.profile.email | encode_email }}">
-                            <span class="email-text">{{ site.data.profile.email }}</span>
+                        <a class="pr-3 no-break" target="_blank" href="mailto:{{ site.data.profile.email | encode_email }}">
+                            <i class="fas fa-envelope"></i>
                         </a>
 
                         {% if site.data.profile.gscholar %}
