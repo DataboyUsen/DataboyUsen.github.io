@@ -91,8 +91,3 @@ div.lazy {
 .email-text {
     font-family: Source Code Pro, monospace;
 }
-
-.media-body .small > p {
-    margin-top: 0;
-    margin-bottom: 0;
-}
