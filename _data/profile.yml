@@ -53,14 +53,14 @@ education:
 
 experience:
 - name: Shenzhen Stock Exchange
-   logo: /assets/images/badges/ShenzhenSE.png
-   position: Research Assistant
-   date: Jun. 2024 - Aug. 2024
+  logo: /assets/images/badges/ShenzhenSE.png
+  position: Research Assistant
+  date: Jun. 2024 - Aug. 2024
 
 - name: PanopticAI
-   logo: /assets/images/badges/panopticai.png
-   position: Market Analyst Intern
-   date: Jul. 2023 - Aug. 2023
+  logo: /assets/images/badges/panopticai.png
+  position: Market Analyst Intern
+  date: Jul. 2023 - Aug. 2023
 
 awards:
 - name: S.H. Ho College Master's List Award, CUHK
