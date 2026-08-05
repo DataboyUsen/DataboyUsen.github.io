@@ -1,11 +1,11 @@
 primary_name: "Xiaochen SU"
-secondary_name: "Usen"
+secondary_name: ""
 navbar_name: "Xiaochen SU"
 
 positions:
 - name: Rm 141, Lady Shaw Building
 - name: The Chinese University of Hong Kong
-  logo: /assets/images/badges/CUHK.png  # Logo is optional
+  #logo: /assets/images/badges/CUHK.png  # Logo is optional
 
 
 email: "xiaochensu@link.cuhk.edu.hk"
@@ -40,10 +40,10 @@ education:
   logo: /assets/images/badges/CUHK.png
   position: >- 
     Department of Statistics and Data Science <br/>
-    Ph.D. Student
+    Ph.D. Student <br/>
     BSc. in Statistics
   date: >-
-    Sep. 2026 - present
+    Sep. 2026 - present <br/>
     Sep. 2021 - Jul. 2026
     
 - name: Shanghai Jiao Tong University
@@ -52,13 +52,13 @@ education:
   date: Feb. 2023 - Jun. 2023
 
 experience:
-- name: Shenzhen Stock Exchange
-  logo: /assets/images/badges/ShenzhenSE.png
+- name: PanopticAIShenzhen Stock Exchange
+  logo: /assets/images/badges/panopticai.png
   position: Research Assistant
   date: Jun. 2024 - Aug. 2024
 
-- name: PanopticAI
-  logo: /assets/images/badges/panopticai.png
+- name: Shenzhen Stock Exchange
+  logo: /assets/images/badges/ShenzhenSE.png
   position: Market Analyst Intern
   date: Jul. 2023 - Aug. 2023
 
