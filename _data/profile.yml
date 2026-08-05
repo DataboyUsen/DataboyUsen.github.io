@@ -57,6 +57,14 @@ education:
   date: >-
     Feb. 2023 - Jun. 2023
 
+- name: University of Cambridge
+  logo: /assets/images/badges/cambridge.png
+  position: >-
+    Jesus College <br/>
+    Summer Visiting Programme
+  date: >-
+    Jun. 2025
+
 experience:
 - name: PanopticAI
   logo: /assets/images/badges/panopticai.png
