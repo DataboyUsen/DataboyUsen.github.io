@@ -9,8 +9,6 @@ courses:
       - name: Lecture Notes
         #link: /files/lecture1.pdf
 
-
-courses:
   - title: "STAT[demo2]"
     image: /assets/images/courses/STATdemo2.png
     #link: /courses/course1
