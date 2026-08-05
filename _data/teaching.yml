@@ -1,0 +1,10 @@
+courses:
+  - title: "STAT[demo]"
+    image: /assets/images/courses/STATdemo.png
+    #link: /courses/course1
+    description: "Example course name."
+    materials:
+      - name: Syllabus
+        #link: /files/syllabus1.pdf
+      - name: Lecture Notes
+        #link: /files/lecture1.pdf
