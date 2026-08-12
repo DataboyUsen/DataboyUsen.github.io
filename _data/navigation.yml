@@ -5,10 +5,10 @@ pages:
   url: /
 - name: Teaching
   url: /teaching
+- name: Blog
+  url: /blog
 
 # - name: Publications
 #   url: /publications
-# - name: Blog
-#   url: /blog
 # - name: Showcase
 #   url: /showcase
