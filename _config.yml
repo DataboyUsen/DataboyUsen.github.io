@@ -17,6 +17,8 @@ baseurl: "" # the subpath of your site, e.g. /blog
 
 # Build settings
 markdown: kramdown
+kramdown:
+  math_engine: katex
 plugins:
   - jekyll-email-protect
 
