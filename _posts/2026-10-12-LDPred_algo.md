@@ -46,6 +46,7 @@ where $D = \frac{X^\top X}{N}$ is the LD matrix.
 
 
 Under a marginal view,
+
 $$
 \boxed{
 \tilde{\beta}_j = D_{jj}\beta_j + \sum_{k \ne j}D_{jk} \beta_k + \frac{1}{N} X_j^\top \varepsilon
@@ -64,6 +65,7 @@ However, the value of $X$ and $y$ are often unavaliable, we can only observe GWA
 
 
 The design of $(1-h^2)I$ is because phenotypic variance is normalized to $1$ for each individual. If the genotype component explains variance $h^2$, then we have
+
 $$
 \operatorname{Var}(y_n) = \operatorname{Var}((X\beta)_n) + \operatorname{Var}(\varepsilon_n) = h^2 + (1 - h^2) = 1.
 $$
@@ -71,7 +73,9 @@ $$
 
 **Bayesian Framework**
 
+
 Given a prior distribution of $f(\beta)$, equation $(1)$ allows us to derive $f(\tilde{\beta} | \beta)$. Bayesian method suggests
+
 
 $$
 f(\beta \mid \tilde{\beta}) \propto
@@ -156,14 +160,17 @@ $$
 
 
 - Under the linked assumption, LD leakage is assumed to exist only between adjacent SNPs. The paper further partitions SNPs into blocks by a given window size and **assumes that all SNPs within the same block share the same neighborhood**. Suppose $\beta_j$ is attributed into $l$-th block $\mathcal{B}_l$, then
+
 $$
 \tilde{\beta}_j = \beta_j + \sum_{k \in \mathcal{B}_l,k\ne j} D_{jk} \beta_k + \frac{1}{N} X_j^\top \eta^{(l)},  \ \ \ \eta^{(l)} \sim \mathcal{N}\left(0, \dfrac{1- h_l^2}{N}\right)
 $$
-The error term $\eta^{(l)}$ differs across blocks, since it includes LD leakage from outside the block. And $h_l^2$ can be interpreted as heritability explained by the effect weights inside the block. 
+
+   <br>The error term $\eta^{(l)}$ differs across blocks, since it includes LD leakage from outside the block. And $h_l^2$ can be interpreted as heritability explained by the effect weights inside the block. 
 
 
 
     <br>In matrix form, For the $l$-th LD block $\mathcal{B}_l$, denote the true effects in this region by $\beta^{(l)}$, the marginal estimates by $\tilde{\beta}^{(l)}$, the genotype SNPs $X^{(l)}$, and the LD matrix by $D^{(l)}$.
+
 
 $$
 \tilde{\beta}^{(l)} =  D^{(l)}\beta^{(l)} + \frac{{X^{(l)}}^{\top} \eta^{(l)}}{N}
