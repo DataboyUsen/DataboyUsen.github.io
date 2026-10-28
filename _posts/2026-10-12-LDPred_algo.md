@@ -173,7 +173,7 @@ $$
 
 
     $$
-    \tilde{\beta}^{(l)} =  D^{(l)}\beta^{(l)} + \frac{{X^{(l)}}^{\top} \eta^{(l)}}{N}
+    \tilde{\beta}^{(l)} = D^{(l)}\beta^{(l)} + \frac{(X^{(l)})^{\top}\eta^{(l)}}{N}
     $$
 
 ---
@@ -450,7 +450,7 @@ We simplified the paper by assuming that SNP linkage only appears within a local
 
 $$
 \begin{aligned}
-\tilde{\beta}^{(l)} =  D^{(l)}\beta^{(l)} + \frac{{X^{(l)}}^\top \eta^{(l)}}{N}.
+\tilde{\beta}^{(l)} = D^{(l)}\beta^{(l)} + \frac{(X^{(l)})^\top\eta^{(l)}}{N}.
 \end{aligned}
 $$
 
@@ -717,7 +717,7 @@ $$
 
 ## (i) LD Calculation Cost
 
-LDPred materializes $D^{\left(l\right)} = \frac{{X^{\left(l\right)}}^TX^{\left(l\right)}}{N}$, in each block, suppose each block has the same size $K \times K$, the calculation of one block is:
+LDPred materializes $D^{(l)} = \frac{(X^{(l)})^T X^{(l)}}{N}$, in each block, suppose each block has the same size $K \times K$, the calculation of one block is:
 $$
 O(NK^2).
 $$
