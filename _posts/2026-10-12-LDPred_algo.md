@@ -15,7 +15,7 @@ Learning notes about LDPred algorithm.
 # 1. Principle Analysis
 
 ---
-## 1.0 Model & Overview
+## Model & Overview
 
 **Linear Model**
 
@@ -48,10 +48,12 @@ where $D = \frac{X^\top X}{N}$ is the LD matrix.
 Under a marginal view,
 
 $$
+\begin{aligned}
 \boxed{
 \tilde{\beta}_j = D_{jj}\beta_j + \sum_{k \ne j}D_{jk} \beta_k + \frac{1}{N} X_j^\top \varepsilon
 }
 \tag{1}
+\end{aligned}
 $$
 
 
@@ -73,8 +75,7 @@ $$
 
 **Bayesian Framework**
 
-
-Given a prior distribution of $f(\beta)$, equation $(1)$ allows us to derive $f(\tilde{\beta} | \beta)$. Bayesian method suggests
+Given a prior distribution of $f(\beta)$, equation $(1)$ allows us to derive $f(\tilde{\beta} \mid \beta)$. Bayesian method suggests
 
 
 $$
@@ -117,6 +118,7 @@ $$
 **Sparse/Dense Assumption** 
 
 - Dense implies every SNP matters
+
 $$
 \beta_j
 \overset{\text{i.i.d.}}{\sim}
@@ -124,6 +126,7 @@ $$
 $$
 
 - Sparsity assumes each SNP may or may not be causal with the same probability $p$
+
 $$
 \begin{aligned}
 \beta_j
@@ -152,6 +155,7 @@ $$
 $$
 
 - Under the unlinked assumption, LD leakage does not exist. For the given standardized sample $X$, $D_{jj}=1$ holds, and $\sum_{k \ne j}D_{jk}\beta_k$ can also be regarded as random sampling noise, i.e. 
+
 $$
 \tilde{\beta}_j=\beta_j + \text{noise}_j,  \ \ \ \text{noise}_j \sim \mathcal{N}\left(0, \dfrac{1}{N}\right)
 $$
@@ -159,17 +163,15 @@ $$
 
 
 
-- Under the linked assumption, LD leakage is assumed to exist only between adjacent SNPs. The paper further partitions SNPs into blocks by a given window size and **assumes that all SNPs within the same block share the same neighborhood**. Suppose $\beta_j$ is attributed into $l$-th block $\mathcal{B}_l$, then
+- Under the linked assumption, LD leakage is assumed to exist only between adjacent SNPs. The paper further partitions SNPs into blocks by a given window size and **here we assume that all SNPs within the same block share the same neighborhood**. Suppose $\beta_j$ is attributed into $l$-th block $\mathcal{B}_l$, then
 
-$$
-\tilde{\beta}_j = \beta_j + \sum_{k \in \mathcal{B}_l,k\ne j} D_{jk} \beta_k + \frac{1}{N} X_j^\top \eta^{(l)},  \ \ \ \eta^{(l)} \sim \mathcal{N}\left(0, \dfrac{1- h_l^2}{N}\right)
-$$
+    $$
+    \tilde{\beta}_j = \beta_j + \sum_{k \in \mathcal{B}_l,k\ne j} D_{jk} \beta_k + \frac{1}{N} X_j^\top \eta^{(l)},  \ \ \ \eta^{(l)} \sim \mathcal{N}\left(0, \dfrac{1- h_l^2}{N}\right)
+    $$
 
-   <br>The error term $\eta^{(l)}$ differs across blocks, since it includes LD leakage from outside the block. And $h_l^2$ can be interpreted as heritability explained by the effect weights inside the block. 
+    The error term $\eta^{(l)}$ differs across blocks, since it includes LD leakage from outside the block. And $h_l^2$ can be interpreted as heritability explained by the effect weights inside the block. 
 
-
-
-    <br>In matrix form, For the $l$-th LD block $\mathcal{B}_l$, denote the true effects in this region by $\beta^{(l)}$, the marginal estimates by $\tilde{\beta}^{(l)}$, the genotype SNPs $X^{(l)}$, and the LD matrix by $D^{(l)}$.
+    In matrix form, For the $l$-th LD block $\mathcal{B}_l$, denote the true effects in this region by $\beta^{(l)}$, the marginal estimates by $\tilde{\beta}^{(l)}$, the genotype SNPs $X^{(l)}$, and the LD matrix by $D^{(l)}$.
 
 
 $$
@@ -177,7 +179,7 @@ $$
 $$
 
 ---
-## 1.1 Dense + Unlinked Scenario
+## (i) Dense + Unlinked Scenario
 
 This represents the most idealized and simplest setting.
 
@@ -200,6 +202,7 @@ $$
 **Posterior:**
 
 The above yields a classic conjugate-normal case, in which the posterior admits a closed-form solution
+
 $$
 \beta_j\mid\tilde{\beta}_j
 \sim
@@ -221,7 +224,7 @@ The implementation is simple: apply the same shrinkage factor independently to e
 
 
 ---
-## 1.2 Sparse + Unlinked Scenario
+## (ii) Sparse + Unlinked Scenario
 
 
 **Sparse prior:**
@@ -347,9 +350,11 @@ $$
     $$
     \tilde{\beta}_j=\beta_j + \text{noise}_j,  \ \ \ \text{noise}_j \sim \mathcal{N}\left(0, \dfrac{1}{N}\right) = \mathcal{N}\left(0, \sigma_e^2\right)
     $$
+
     $$(\beta_j | \beta_j \ne 0) \sim  \mathcal{N}\left(0, \dfrac{h^2}{Mp}\right)= \mathcal{N}\left(0, \sigma_b^2\right)$$
 
     &emsp; &emsp; Then we can derive that
+    
     $$
     \begin{aligned}
     (\tilde{\beta}_j \mid \beta_j \ne 0) &\sim \mathcal{N}\left(0,\ \sigma_e^2 + \sigma_b^2\right) \\
@@ -357,33 +362,34 @@ $$
     \end{aligned}
     $$
 
-     &emsp; &emsp; Back to the goal of writing $\bar{p}_j$
-        $$
-        \begin{aligned}
-        \bar{p}_j
-        =
-        P(\beta_j\ne0\mid\tilde{\beta}_j)
-        &=
-            \frac{
-            P(\beta_j \ne 0) \cdot P(\tilde{\beta_j}|\beta_j \ne 0)
-            }{
-            P(\beta_j \ne 0) \cdot P(\tilde{\beta_j}|\beta_j \ne 0) 
-            +
-            P(\beta_j = 0) \cdot P(\tilde{\beta_j}|\beta_j = 0)
-            } \\[18pt]
-        &=
-            \frac{
-            p\phi(\tilde{\beta}_j;0,\sigma_b^2+\sigma_e^2)
-            }{
-            p\phi(\tilde{\beta}_j;0,\sigma_b^2+\sigma_e^2)
-            +
-            (1-p)\phi(\tilde{\beta}_j;0,\sigma_e^2)
-            } \\
-        \end{aligned}
-        $$
+    &emsp; &emsp; Back to the goal of writing $\bar{p}_j$
 
-- $P(\beta_j = 0 \mid \tilde{\beta}_j) $
- &emsp; &emsp; This term is just $1 - \bar{p}_j$.
+    $$
+    \begin{aligned}
+    \bar{p}_j
+    =
+    P(\beta_j\ne0\mid\tilde{\beta}_j)
+    &=
+        \frac{
+        P(\beta_j \ne 0) \cdot P(\tilde{\beta_j}|\beta_j \ne 0)
+        }{
+        P(\beta_j \ne 0) \cdot P(\tilde{\beta_j}|\beta_j \ne 0) 
+        +
+        P(\beta_j = 0) \cdot P(\tilde{\beta_j}|\beta_j = 0)
+        } \\[18pt]
+    &=
+        \frac{
+        p\phi(\tilde{\beta}_j;0,\sigma_b^2+\sigma_e^2)
+        }{
+        p\phi(\tilde{\beta}_j;0,\sigma_b^2+\sigma_e^2)
+        +
+        (1-p)\phi(\tilde{\beta}_j;0,\sigma_e^2)
+        } \\
+    \end{aligned}
+    $$
+
+- $P(\beta_j = 0 \mid \tilde{\beta}_j) = 1 - \bar{p}_j$
+
 
 
 
@@ -422,7 +428,7 @@ $$
 Compared with first scenario, the only additional key quantity is $\bar{p}_j$, the posterior causal probability.
 
 ---
-## 1.3 Sparse + Linked Scenario
+## (iii) Sparse + Linked Scenario
 
 This is the core LDpred scenario. 
 **Sparse Prior:**
@@ -441,11 +447,14 @@ $$
 
 **Linked Likelihood:**
 
- Paper assumes SNP linkage only appears within a local LD block, for the $l$-th block $\mathcal{B}_l$, 
+We simplified the paper by assuming that SNP linkage only appears within a local LD block, for the $l$-th block $\mathcal{B}_l$, 
+
 $$
 \tilde{\beta}^{(l)} =  D^{(l)}\beta^{(l)} + \frac{{X^{(l)}}^\top \eta^{(l)}}{N}.
 $$
+
 Under this view, likelihood is:
+
 $$
 \tilde{\beta}^{(l)} |  \beta^{(l)} \sim \mathcal{N}\left(D^{(l)}\beta^{(l)}, \frac{1-h_l^2}{N}D^{(l)}\right) .
 $$
@@ -463,17 +472,20 @@ For notational cleanliness in what follows, **we drop the block-related superscr
 
 
 **Posterior:**
+
 $$
 f(\beta \mid \tilde{\beta}) =  \frac{ f(\tilde{\beta} \mid \beta) f(\beta)}{\int f(\tilde{\beta} \mid \beta) f(\beta) \, d\beta} 
 $$
 
 This posterior is not a common distribution, directly calculating
+
 $$
 \begin{aligned}
 E(\beta \mid \tilde{\beta}) &= \int \frac{\beta_i f(\tilde{\beta} \mid \beta) f(\beta)}
 {\int f(\tilde{\beta} \mid \beta) f(\beta) \, d\beta} \, d\beta,
 \end{aligned} \tag3
 $$
+
 is extremely complicated, since this expectation consists of two $M$-dimensional integrands.
 
 
@@ -514,6 +526,7 @@ $$
 
 
 Therefore, the key point is sampling from 
+
 $$
 \begin{aligned}
 f(\beta_j \mid \beta_{-j}, \tilde{\beta}_j)
@@ -526,7 +539,6 @@ $$
 Very similar to the second scenario, we derive each term of above equation.
 
 - $f(\beta_j \mid \beta_{-j}, \tilde{\beta}_j, \beta_j = 0)$
-
 
 $$
 \begin{aligned}
@@ -552,8 +564,8 @@ $$
 
 
 
-- $f(\beta_j \mid  \beta_{-j}, \tilde {\beta}_j, \beta_j \ne 0 )
-$
+- $f(\beta_j \mid  \beta_{-j}, \tilde {\beta}_j, \beta_j \ne 0 )$
+
 $$
 \begin{aligned}
 f(\beta_j \mid \beta_{-j}, \tilde{\beta}_j, \beta_j \ne 0)
@@ -578,6 +590,7 @@ f(\beta_j \mid \beta_{-j}, \tilde{\beta}_j, \beta_j \ne 0)
 $$
 
     &emsp; &emsp; The rest 2 densitise are also known normal pdf
+
 $$
 \begin{aligned}
 (\beta_j \mid \beta_{-j}, \beta_j \ne 0)
@@ -626,6 +639,7 @@ $$
 \sim
 \mathcal{N}(a_j,\sigma_e^2),
 $$
+
 $$
 (\tilde{\beta}_j \mid \beta_{-j}, \beta_j\ne0)
 \sim
@@ -660,19 +674,9 @@ p\,\phi(\tilde{\beta}_j;a_j,\sigma_e^2+\sigma_b^2)
 \end{aligned}
 $$
 
-- $P(\beta_j = 0 \mid  \beta_{-j}, \tilde{\beta}_j)$
-
-$$
-P(\beta_j = 0 \mid  \beta_{-j}, \tilde{\beta}_j)
-=
-1-\bar{\pi}_j.
-$$
-
-
-
+- $P(\beta_j = 0 \mid  \beta_{-j}, \tilde{\beta}_j) = 1-\bar{\pi}_j$
 
 To sum up, the whole picture of steps above is:
-
 
 
 $$
@@ -710,7 +714,7 @@ $$
 # 2. Complexity Analysis
 
 
-## 2.1 LD Calculation Cost
+## (i) LD Calculation Cost
 
 LDPred materializes $D^{(l)} = \frac{{X^{(l)}}^TX^{(l)}}{N}$, in each block, suppose each block has the same size $K \times K$, the calculation of one block is:
 $$
@@ -722,7 +726,7 @@ $$
 O(NMK)
 $$
 
-## 2.2 Gibbs Sampler Cost
+## (ii) Gibbs Sampler Cost
 
 Here we only analyze the core method in **1.3 Sparse + Linked Scenario**, namely the time complexity of the approximate Gibbs sampler.
 
@@ -769,3 +773,8 @@ Suming up with LD calculation, the overall complexity of `LDPred` is:
 $$
 O[(T+N)MK]
 $$
+
+
+
+# References
+- Vilhjálmsson B, Yang J, Finucane H et al. Modeling Linkage Disequilibrium Increases Accuracy of Polygenic Risk Scores, *The American Journal of Human Genetics*, 97, 576-592
