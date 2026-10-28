@@ -261,9 +261,11 @@ $$
 However, the paper provides an alternative way,
 
 $$
+\begin{aligned}
 f(\beta_j \mid \tilde{\beta}_j)
 &= P(\beta_j = 0 \mid \tilde{\beta}_j) \cdot f(\beta_j \mid \beta_j = 0, \tilde{\beta}_j) \\
 &\quad + P(\beta_j \ne 0 \mid \tilde{\beta}_j) \cdot f(\beta_j \mid \beta_j \ne 0, \tilde {\beta}_j) \\
+\end{aligned}
 \tag{2}
 $$
 
