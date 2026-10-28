@@ -48,12 +48,12 @@ where $D = \frac{X^\top X}{N}$ is the LD matrix.
 Under a marginal view,
 
 $$
-\begin{aligned}
+\begin{equation}
 \boxed{
 \tilde{\beta}_j = D_{jj}\beta_j + \sum_{k \ne j}D_{jk} \beta_k + \frac{1}{N} X_j^\top \varepsilon
 }
 \tag{1}
-\end{aligned}
+\end{equation}
 $$
 
 
@@ -174,9 +174,9 @@ $$
     In matrix form, For the $l$-th LD block $\mathcal{B}_l$, denote the true effects in this region by $\beta^{(l)}$, the marginal estimates by $\tilde{\beta}^{(l)}$, the genotype SNPs $X^{(l)}$, and the LD matrix by $D^{(l)}$.
 
 
-$$
-\tilde{\beta}^{(l)} =  D^{(l)}\beta^{(l)} + \frac{{X^{(l)}}^{\top} \eta^{(l)}}{N}
-$$
+    $$
+    \tilde{\beta}^{(l)} =  D^{(l)}\beta^{(l)} + \frac{{X^{(l)}}^{\top} \eta^{(l)}}{N}
+    $$
 
 ---
 ## (i) Dense + Unlinked Scenario
@@ -263,11 +263,11 @@ $$
 However, the paper provides an alternative way,
 
 $$
-\begin{aligned}
+\begin{equation}
 f(\beta_j \mid \tilde{\beta}_j)
 &= P(\beta_j = 0 \mid \tilde{\beta}_j) \cdot f(\beta_j \mid \beta_j = 0, \tilde{\beta}_j) \\
 &\quad + P(\beta_j \ne 0 \mid \tilde{\beta}_j) \cdot f(\beta_j \mid \beta_j \ne 0, \tilde {\beta}_j) \\
-\end{aligned}\tag{2}
+\end{equation}\tag{2}
 $$
 
 Next we derive each term of above equation.
@@ -450,10 +450,14 @@ $$
 We simplified the paper by assuming that SNP linkage only appears within a local LD block, for the $l$-th block $\mathcal{B}_l$, 
 
 $$
+\begin{aligned}
 \tilde{\beta}^{(l)} =  D^{(l)}\beta^{(l)} + \frac{{X^{(l)}}^\top \eta^{(l)}}{N}.
+\end{aligned}
 $$
 
+
 Under this view, likelihood is:
+
 
 $$
 \tilde{\beta}^{(l)} |  \beta^{(l)} \sim \mathcal{N}\left(D^{(l)}\beta^{(l)}, \frac{1-h_l^2}{N}D^{(l)}\right) .
@@ -480,10 +484,10 @@ $$
 This posterior is not a common distribution, directly calculating
 
 $$
-\begin{aligned}
-E(\beta \mid \tilde{\beta}) &= \int \frac{\beta_i f(\tilde{\beta} \mid \beta) f(\beta)}
+\begin{equation}
+E(\beta \mid \tilde{\beta}) = \int \frac{\beta_i f(\tilde{\beta} \mid \beta) f(\beta)}
 {\int f(\tilde{\beta} \mid \beta) f(\beta) \, d\beta} \, d\beta,
-\end{aligned} \tag3
+\end{equation} \tag3
 $$
 
 is extremely complicated, since this expectation consists of two $M$-dimensional integrands.
@@ -519,9 +523,9 @@ f(\beta_j \mid \beta_{-j}, \tilde{\beta})= \frac{f(\tilde{\beta}, \beta)}{f(\til
 However, sampling from this distribution is still not trivial. So the paper arose **an assumption for splification**:
 
 $$
-\begin{aligned}
+\begin{equation}
 f(\beta_j \mid \beta_{-j}, \color{darkgreen}{\tilde{\beta}} \color{black}{) \approx f(\beta_j \mid \beta_{-j},} \color{darkgreen}{\tilde{\beta}_j} \color{black}{)} 
-\end{aligned} \tag{Assumption 1}
+\end{equation} \tag{Assumption 1}
 $$
 
 
@@ -589,7 +593,7 @@ f(\beta_j \mid \beta_{-j}, \tilde{\beta}_j, \beta_j \ne 0)
 \end{aligned}
 $$
 
-    &emsp; &emsp; The rest 2 densitise are also known normal pdf
+&emsp; &emsp; &emsp; &emsp;The rest 2 densitise are also known normal pdf
 
 $$
 \begin{aligned}
@@ -716,7 +720,7 @@ $$
 
 ## (i) LD Calculation Cost
 
-LDPred materializes $D^{(l)} = \frac{{X^{(l)}}^TX^{(l)}}{N}$, in each block, suppose each block has the same size $K \times K$, the calculation of one block is:
+LDPred materializes $D^{\left(l\right)} = \frac{{X^{\left(l\right)}}^TX^{\left(l\right)}}{N}$, in each block, suppose each block has the same size $K \times K$, the calculation of one block is:
 $$
 O(NK^2).
 $$
