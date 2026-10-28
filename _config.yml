@@ -18,7 +18,8 @@ baseurl: "" # the subpath of your site, e.g. /blog
 # Build settings
 markdown: kramdown
 kramdown:
-  math_engine: katex
+  # Preserve the source delimiters for the single KaTeX renderer in the layout.
+  math_engine: "null"
 plugins:
   - jekyll-email-protect
 

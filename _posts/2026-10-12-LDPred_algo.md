@@ -7,7 +7,7 @@ tags:
   - Algorithm
 ---
 
-Learning notes about LDPred algorithm. 
+Learning notes about LDPred algorithm.
 
 
 
@@ -48,17 +48,15 @@ where $D = \frac{X^\top X}{N}$ is the LD matrix.
 Under a marginal view,
 
 $$
-\begin{equation}
 \boxed{
 \tilde{\beta}_j = D_{jj}\beta_j + \sum_{k \ne j}D_{jk} \beta_k + \frac{1}{N} X_j^\top \varepsilon
 }
 \tag{1}
-\end{equation}
 $$
 
 
 However, the value of $X$ and $y$ are often unavaliable, we can only observe GWAS summary statistics $\tilde{\beta}$. The rough idea of LDPred is:
-- First replacing $X$ by a reachable reference panel $X_r$. This assumes both $X$ and $X_r$ are samples from the same population so that $X^TX$ and $X_r^TX_r$ share the same structure. 
+- First replacing $X$ by a reachable reference panel $X_r$. This assumes both $X$ and $X_r$ are samples from the same population so that $X^TX$ and $X_r^TX_r$ share the same structure.
 - Then using equation (1) to infer $\beta$ given $\tilde{\beta}, D_r$.
 
 **In the following text, we use $D$ to represent the LD matrix calculated by reference panel.**
@@ -86,9 +84,9 @@ f(\beta \mid \tilde{\beta}) \propto
 $$
 
 Each components of posterior distribution is influenced by 2 factors, to illustrate this algorithm, we analized three scenarios:
-- Dense + Unlinked  
-- Sparse + Unlinked  
-- Sparse + Linked 
+- Dense + Unlinked
+- Sparse + Unlinked
+- Sparse + Linked
 
 
 The final goal is using posterior expectation $E(\beta \mid \tilde{\beta})$ as estimated effect weights, the general approach to this is:
@@ -115,7 +113,7 @@ $$
 
 
 
-**Sparse/Dense Assumption** 
+**Sparse/Dense Assumption**
 
 - Dense implies every SNP matters
 
@@ -154,7 +152,7 @@ $$
 \underbrace{\frac{1}{N} X_j^\top \varepsilon}_{\text{Sampling noise}}
 $$
 
-- Under the unlinked assumption, LD leakage does not exist. For the given standardized sample $X$, $D_{jj}=1$ holds, and $\sum_{k \ne j}D_{jk}\beta_k$ can also be regarded as random sampling noise, i.e. 
+- Under the unlinked assumption, LD leakage does not exist. For the given standardized sample $X$, $D_{jj}=1$ holds, and $\sum_{k \ne j}D_{jk}\beta_k$ can also be regarded as random sampling noise, i.e.
 
 $$
 \tilde{\beta}_j=\beta_j + \text{noise}_j,  \ \ \ \text{noise}_j \sim \mathcal{N}\left(0, \dfrac{1}{N}\right)
@@ -169,7 +167,7 @@ $$
     \tilde{\beta}_j = \beta_j + \sum_{k \in \mathcal{B}_l,k\ne j} D_{jk} \beta_k + \frac{1}{N} X_j^\top \eta^{(l)},  \ \ \ \eta^{(l)} \sim \mathcal{N}\left(0, \dfrac{1- h_l^2}{N}\right)
     $$
 
-    The error term $\eta^{(l)}$ differs across blocks, since it includes LD leakage from outside the block. And $h_l^2$ can be interpreted as heritability explained by the effect weights inside the block. 
+    The error term $\eta^{(l)}$ differs across blocks, since it includes LD leakage from outside the block. And $h_l^2$ can be interpreted as heritability explained by the effect weights inside the block.
 
     In matrix form, For the $l$-th LD block $\mathcal{B}_l$, denote the true effects in this region by $\beta^{(l)}$, the marginal estimates by $\tilde{\beta}^{(l)}$, the genotype SNPs $X^{(l)}$, and the LD matrix by $D^{(l)}$.
 
@@ -263,11 +261,10 @@ $$
 However, the paper provides an alternative way,
 
 $$
-\begin{equation}
 f(\beta_j \mid \tilde{\beta}_j)
 &= P(\beta_j = 0 \mid \tilde{\beta}_j) \cdot f(\beta_j \mid \beta_j = 0, \tilde{\beta}_j) \\
 &\quad + P(\beta_j \ne 0 \mid \tilde{\beta}_j) \cdot f(\beta_j \mid \beta_j \ne 0, \tilde {\beta}_j) \\
-\end{equation}\tag{2}
+\tag{2}
 $$
 
 Next we derive each term of above equation.
@@ -276,21 +273,21 @@ Next we derive each term of above equation.
 
 $$
 \begin{aligned}
-f(\beta_j \mid \beta_j=0, \tilde{\beta}_j) 
+f(\beta_j \mid \beta_j=0, \tilde{\beta}_j)
 &= \frac{
-        \color{darkred}{f(\tilde{\beta}_j \mid \beta_j, \beta_j = 0)} 
-        \cdot \color{darkgreen}{f(\beta_j | \beta_j=0)} 
+        \color{#b91c1c}{f(\tilde{\beta}_j \mid \beta_j, \beta_j = 0)}
+        \cdot \color{#15803d}{f(\beta_j | \beta_j=0)}
         \cdot \color{black}{P(\beta_j=0)}}
     {
-        \color{darkblue}{f(\tilde{\beta}_j | \beta_j=0) }\cdot \color{black}{P(\beta_j=0)}
+        \color{#1d4ed8}{f(\tilde{\beta}_j | \beta_j=0) }\cdot \color{black}{P(\beta_j=0)}
     } \\
 &= \frac{
-        \color{darkred}{f(\tilde{\beta}_j \mid \beta_j = 0)} 
-        \cdot \color{darkgreen}{f(\beta_j | \beta_j=0)}
+        \color{#b91c1c}{f(\tilde{\beta}_j \mid \beta_j = 0)}
+        \cdot \color{#15803d}{f(\beta_j | \beta_j=0)}
     }{
-        \color{darkblue}{f(\tilde{\beta}_j | \beta_j=0)}
+        \color{#1d4ed8}{f(\tilde{\beta}_j | \beta_j=0)}
     } \\
-&= \color{darkgreen}{f(\beta_j | \beta_j=0)} \\
+&= \color{#15803d}{f(\beta_j | \beta_j=0)} \\
 &= \mathbf{1}_{(\beta_j = 0)}
 \end{aligned}
 $$
@@ -300,23 +297,23 @@ $$
 
 $$
 \begin{aligned}
-f(\beta_j \mid \beta_j\ne0, \tilde{\beta}_j) 
+f(\beta_j \mid \beta_j\ne0, \tilde{\beta}_j)
 &= \frac{
-        \color{darkred}{f(\tilde{\beta}_j \mid \beta_j, \beta_j \ne 0)} 
-        \cdot \color{darkgreen}{f(\beta_j | \beta_j\ne0)} 
+        \color{#b91c1c}{f(\tilde{\beta}_j \mid \beta_j, \beta_j \ne 0)}
+        \cdot \color{#15803d}{f(\beta_j | \beta_j\ne0)}
         \cdot \color{black}{P(\beta_j\ne0)}}
     {
-        \color{darkblue}{f(\tilde{\beta}_j | \beta_j\ne0) }\cdot \color{black}{P(\beta_j\ne0)}
+        \color{#1d4ed8}{f(\tilde{\beta}_j | \beta_j\ne0) }\cdot \color{black}{P(\beta_j\ne0)}
     } \\
 &= \frac{
-        \color{darkred}{f(\tilde{\beta}_j \mid \beta_j, \beta_j \ne 0)} 
-        \cdot \color{darkgreen}{f(\beta_j | \beta_j\ne0)}
+        \color{#b91c1c}{f(\tilde{\beta}_j \mid \beta_j, \beta_j \ne 0)}
+        \cdot \color{#15803d}{f(\beta_j | \beta_j\ne0)}
     }{
-        \color{darkblue}{f(\tilde{\beta}_j | \beta_j\ne0)}
+        \color{#1d4ed8}{f(\tilde{\beta}_j | \beta_j\ne0)}
     } \\
-&= \color{darkblue}{\text{const}} 
-        \cdot \color{darkred}{f(\tilde{\beta}_j \mid \beta_j, \beta_j \ne 0)} 
-        \cdot \color{darkgreen}{f(\beta_j | \beta_j\ne0)}
+&= \color{#1d4ed8}{\text{const}}
+        \cdot \color{#b91c1c}{f(\tilde{\beta}_j \mid \beta_j, \beta_j \ne 0)}
+        \cdot \color{#15803d}{f(\beta_j | \beta_j\ne0)}
 \end{aligned}
 $$
 
@@ -354,7 +351,7 @@ $$
     $$(\beta_j | \beta_j \ne 0) \sim  \mathcal{N}\left(0, \dfrac{h^2}{Mp}\right)= \mathcal{N}\left(0, \sigma_b^2\right)$$
 
     &emsp; &emsp; Then we can derive that
-    
+
     $$
     \begin{aligned}
     (\tilde{\beta}_j \mid \beta_j \ne 0) &\sim \mathcal{N}\left(0,\ \sigma_e^2 + \sigma_b^2\right) \\
@@ -373,7 +370,7 @@ $$
         \frac{
         P(\beta_j \ne 0) \cdot P(\tilde{\beta_j}|\beta_j \ne 0)
         }{
-        P(\beta_j \ne 0) \cdot P(\tilde{\beta_j}|\beta_j \ne 0) 
+        P(\beta_j \ne 0) \cdot P(\tilde{\beta_j}|\beta_j \ne 0)
         +
         P(\beta_j = 0) \cdot P(\tilde{\beta_j}|\beta_j = 0)
         } \\[18pt]
@@ -430,7 +427,7 @@ Compared with first scenario, the only additional key quantity is $\bar{p}_j$, t
 ---
 ## (iii) Sparse + Linked Scenario
 
-This is the core LDpred scenario. 
+This is the core LDpred scenario.
 **Sparse Prior:**
 
 $$
@@ -447,7 +444,7 @@ $$
 
 **Linked Likelihood:**
 
-We simplified the paper by assuming that SNP linkage only appears within a local LD block, for the $l$-th block $\mathcal{B}_l$, 
+We simplified the paper by assuming that SNP linkage only appears within a local LD block, for the $l$-th block $\mathcal{B}_l$,
 
 $$
 \begin{aligned}
@@ -478,16 +475,15 @@ For notational cleanliness in what follows, **we drop the block-related superscr
 **Posterior:**
 
 $$
-f(\beta \mid \tilde{\beta}) =  \frac{ f(\tilde{\beta} \mid \beta) f(\beta)}{\int f(\tilde{\beta} \mid \beta) f(\beta) \, d\beta} 
+f(\beta \mid \tilde{\beta}) =  \frac{ f(\tilde{\beta} \mid \beta) f(\beta)}{\int f(\tilde{\beta} \mid \beta) f(\beta) \, d\beta}
 $$
 
 This posterior is not a common distribution, directly calculating
 
 $$
-\begin{equation}
 E(\beta \mid \tilde{\beta}) = \int \frac{\beta_i f(\tilde{\beta} \mid \beta) f(\beta)}
 {\int f(\tilde{\beta} \mid \beta) f(\beta) \, d\beta} \, d\beta,
-\end{equation} \tag3
+\tag{3}
 $$
 
 is extremely complicated, since this expectation consists of two $M$-dimensional integrands.
@@ -495,7 +491,7 @@ is extremely complicated, since this expectation consists of two $M$-dimensional
 
 **MCMC Sampling:**
 
-A natural alternative is estimating $(3)$ by sampling from $f(\beta \mid \tilde{\beta})$ and take the average. Gibbs sampler, as a MCMC Sampling technique, suggests: 
+A natural alternative is estimating $(3)$ by sampling from $f(\beta \mid \tilde{\beta})$ and take the average. Gibbs sampler, as a MCMC Sampling technique, suggests:
 
 $$
 \begin{aligned}
@@ -507,9 +503,9 @@ $$
 \end{aligned}
 $$
 
-as one Gibbs iteration. After several burn-in rounds, sampled values would follow the posterior distribution. 
+as one Gibbs iteration. After several burn-in rounds, sampled values would follow the posterior distribution.
 
-So all we need to do is sampling from 
+So all we need to do is sampling from
 
 
 
@@ -523,13 +519,12 @@ f(\beta_j \mid \beta_{-j}, \tilde{\beta})= \frac{f(\tilde{\beta}, \beta)}{f(\til
 However, sampling from this distribution is still not trivial. So the paper arose **an assumption for splification**:
 
 $$
-\begin{equation}
-f(\beta_j \mid \beta_{-j}, \color{darkgreen}{\tilde{\beta}} \color{black}{) \approx f(\beta_j \mid \beta_{-j},} \color{darkgreen}{\tilde{\beta}_j} \color{black}{)} 
-\end{equation} \tag{Assumption 1}
+f(\beta_j \mid \beta_{-j}, \color{#15803d}{\tilde{\beta}} \color{black}{) \approx f(\beta_j \mid \beta_{-j},} \color{#15803d}{\tilde{\beta}_j} \color{black}{)}
+\tag{\text{Assumption 1}}
 $$
 
 
-Therefore, the key point is sampling from 
+Therefore, the key point is sampling from
 
 $$
 \begin{aligned}
@@ -548,20 +543,20 @@ $$
 \begin{aligned}
 f(\beta_j \mid \beta_{-j}, \tilde{\beta}_j, \beta_j = 0)
 &= \frac{
-        \color{darkred}{f(\beta_{-j}, \tilde{\beta}_j \mid \beta_j, \beta_j = 0)}
-        \cdot \color{darkgreen}{f(\beta_j \mid \beta_j = 0)}
+        \color{#b91c1c}{f(\beta_{-j}, \tilde{\beta}_j \mid \beta_j, \beta_j = 0)}
+        \cdot \color{#15803d}{f(\beta_j \mid \beta_j = 0)}
         \cdot \color{black}{P(\beta_j = 0)}
     }{
-        \color{darkblue}{f(\beta_{-j}, \tilde{\beta}_j \mid \beta_j = 0)}
+        \color{#1d4ed8}{f(\beta_{-j}, \tilde{\beta}_j \mid \beta_j = 0)}
         \cdot \color{black}{P(\beta_j = 0)}
     } \\
 &= \frac{
-        \color{darkred}{f(\beta_{-j}, \tilde{\beta}_j \mid \beta_j = 0)}
-        \cdot \color{darkgreen}{f(\beta_j \mid \beta_j = 0)}
+        \color{#b91c1c}{f(\beta_{-j}, \tilde{\beta}_j \mid \beta_j = 0)}
+        \cdot \color{#15803d}{f(\beta_j \mid \beta_j = 0)}
     }{
-        \color{darkblue}{f(\beta_{-j}, \tilde{\beta}_j \mid \beta_j = 0)}
+        \color{#1d4ed8}{f(\beta_{-j}, \tilde{\beta}_j \mid \beta_j = 0)}
     } \\
-&= \color{darkgreen}{f(\beta_j \mid \beta_j = 0)} \\
+&= \color{#15803d}{f(\beta_j \mid \beta_j = 0)} \\
 &= \mathbf{1}_{\{\beta_j = 0\}}.
 \end{aligned}
 $$
@@ -574,22 +569,22 @@ $$
 \begin{aligned}
 f(\beta_j \mid \beta_{-j}, \tilde{\beta}_j, \beta_j \ne 0)
 &= \frac{
-        \color{darkred}{f(\tilde{\beta}_j \mid \beta_j, \beta_{-j}, \beta_j \ne 0)}
-        \cdot \color{darkgreen}{f(\beta_j \mid \beta_{-j}, \beta_j \ne 0)}
+        \color{#b91c1c}{f(\tilde{\beta}_j \mid \beta_j, \beta_{-j}, \beta_j \ne 0)}
+        \cdot \color{#15803d}{f(\beta_j \mid \beta_{-j}, \beta_j \ne 0)}
         \cdot \color{black}{P(\beta_j \ne 0)}
     }{
-        \color{darkblue}{f(\tilde{\beta}_j, \beta_{-j} \mid \beta_j \ne 0)}
+        \color{#1d4ed8}{f(\tilde{\beta}_j, \beta_{-j} \mid \beta_j \ne 0)}
         \cdot \color{black}{P(\beta_j \ne 0)}
     } \\
 &= \frac{
-        \color{darkred}{f(\tilde{\beta}_j \mid \beta_j, \beta_{-j}, \beta_j \ne 0)}
-        \cdot \color{darkgreen}{f(\beta_j \mid \beta_{-j}, \beta_j \ne 0)}
+        \color{#b91c1c}{f(\tilde{\beta}_j \mid \beta_j, \beta_{-j}, \beta_j \ne 0)}
+        \cdot \color{#15803d}{f(\beta_j \mid \beta_{-j}, \beta_j \ne 0)}
     }{
-        \color{darkblue}{f(\tilde{\beta}_j, \beta_{-j} \mid \beta_j \ne 0)}
+        \color{#1d4ed8}{f(\tilde{\beta}_j, \beta_{-j} \mid \beta_j \ne 0)}
     } \\
-&= \color{darkblue}{\text{const}}
-        \cdot \color{darkred}{f(\tilde{\beta}_j \mid \beta_j, \beta_{-j}, \beta_j \ne 0)}
-        \cdot \color{darkgreen}{f(\beta_j \mid \beta_{-j}, \beta_j \ne 0)}.
+&= \color{#1d4ed8}{\text{const}}
+        \cdot \color{#b91c1c}{f(\tilde{\beta}_j \mid \beta_j, \beta_{-j}, \beta_j \ne 0)}
+        \cdot \color{#15803d}{f(\beta_j \mid \beta_{-j}, \beta_j \ne 0)}.
 \end{aligned}
 $$
 
@@ -608,7 +603,7 @@ $$
 &emsp; &emsp; &emsp; &emsp;This is still a conjugate-normal case, we can directly get
 
 $$
-(\beta_j \mid  \beta_{-j}, \tilde {\beta}_j, \beta_j \ne 0 ) 
+(\beta_j \mid  \beta_{-j}, \tilde {\beta}_j, \beta_j \ne 0 )
 \sim
 \mathcal{N}\left(
 \frac{\tilde{\beta}_j - \sum_{k \ne j}D_{jk}\beta_k}{1 + \dfrac{Mp}{Nh^2}} ,\
@@ -673,7 +668,7 @@ p\,\phi(\tilde{\beta}_j;a_j,\sigma_e^2+\sigma_b^2)
 +
 (1-p)\,\phi(\tilde{\beta}_j;a_j,\sigma_e^2)
 } \\[16pt]
-&= 
+&=
 \bar{\pi}_j
 \end{aligned}
 $$
@@ -705,7 +700,7 @@ $$
 }
 $$
 
-Sweeping this over $M$ times is called one Gibbs sampler iteration, after $T$ Gibbs sampler iterations, we would have $\{\beta^{[1]}, \beta^{[2]}, \dots, \beta^{[T]}\}.$ Then posterior mean can be numerically approximated by: 
+Sweeping this over $M$ times is called one Gibbs sampler iteration, after $T$ Gibbs sampler iterations, we would have $\{\beta^{[1]}, \beta^{[2]}, \dots, \beta^{[T]}\}.$ Then posterior mean can be numerically approximated by:
 
 $$
 \frac{1}{T} \sum_{t=1}^T \beta^{[t]}.
